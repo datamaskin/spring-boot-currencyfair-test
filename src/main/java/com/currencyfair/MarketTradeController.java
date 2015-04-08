@@ -19,7 +19,10 @@ import java.util.Random;
 public class MarketTradeController {
 
 //    @RequestMapping(value = "/", headers = {"name=currencyfair", "id=501", "x-requested-with=2"})
-    Random random = null;
+    Random randInt = null;
+    static Random randDouble = null;
+    double MEAN = 0.5f;
+    double VARIANCE = 0.05f;
     
     int START = 500;
     int END = 2000;
@@ -27,7 +30,9 @@ public class MarketTradeController {
 @RequestMapping(value = "/")
     public ResponseEntity<MarketTrader> get() {
     
-        random = new Random();
+        randInt = new Random();
+        randDouble = new Random();
+
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy hh:mm:ss");
         //"24-JAN-15 10:27:44"
 
@@ -50,12 +55,14 @@ public class MarketTradeController {
         public ResponseEntity<MarketTrader> update(@RequestBody MarketTrader marketTrader) {
         
         if (marketTrader != null) {
-            int buy = getRandomInteger(this.START, this.END, this.random);
-            int sell = getRandomInteger(this.START, this.END, this.random);
+            int buy = getRandomInteger(this.START, this.END, this.randInt);
+            int sell = getRandomInteger(this.START, this.END, this.randInt);
+            double rate = getRandomDouble(this.MEAN, this.VARIANCE);
 //            marketTrader.setAmountBuy(marketTrader.getAmountBuy() + (float) buy);
             marketTrader.setAmountBuy((float) buy);
 //            marketTrader.setAmountSell((int) (marketTrader.getAmountSell() + sell));
             marketTrader.setAmountSell(sell);
+            marketTrader.setRate((float) rate);
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy hh:mm:ss");
             marketTrader.setTimePlaced(sdf.format(new Date()));
         }
@@ -73,5 +80,12 @@ public class MarketTradeController {
         long fraction = (long)(range * aRandom.nextDouble());
         int randomNumber =  (int)(fraction + aStart);
         return randomNumber;
+    }
+
+    private static double getRandomDouble(double aMean, double aVariance){
+        double retVal = aMean + randDouble.nextGaussian() * aVariance;
+        if (retVal < 0.0f)
+            retVal = -retVal;
+        return retVal;
     }
 }
