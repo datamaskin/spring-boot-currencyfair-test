@@ -52,9 +52,9 @@ public class JSONStreamParser {
         while (!parser.isClosed()) {
             // get the token
             token = parser.nextToken();
-            System.out.println(token);
-            System.out.println(parser.getCurrentToken());
-            System.out.println(parser.getCurrentName());
+//            System.out.println(token);
+//            System.out.println(parser.getCurrentToken());
+//            System.out.println(parser.getCurrentName());
 
             // if its the last token then we are done
 
@@ -70,9 +70,9 @@ public class JSONStreamParser {
                 if (JsonToken.FIELD_NAME.equals(token)) {
                     if (JsonToken.VALUE_STRING.equals(token))
                         token = parser.nextToken();
-                    System.out.println(parser.getCurrentToken());
+//                    System.out.println(parser.getCurrentToken());
                     String currentName = parser.getCurrentName().toLowerCase();
-                    System.out.println(currentName);
+//                    System.out.println(currentName);
                     switch (currentName) {
                         case "amountbuy" :
                         case "amountsell" :
@@ -88,7 +88,7 @@ public class JSONStreamParser {
                             String text = parser.getText();
                             SDATA[i] = text;
                             i++;
-                            System.out.println(text);
+//                            System.out.println(text);
                             break;
                     }
                 }
