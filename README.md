@@ -21,3 +21,21 @@ The JPhant library is a fork of the JPhant library found on github and recommend
 
 I included the JPhant libary as a jar in case the hardwired pom proves to be too unwieldly to build 
 the JPhant library locally from source.
+
+The JPhant library jar should be easy enough after cloning the project if using Intellij.
+
+Goto Project Structure and add the JPhant library as a jar into the project manually.
+
+The above will also resolve the Apache httpclient dependency.
+
+Open the Intellij Maven Projects and execute spring-boot:run
+
+At this point the MarketTrade jar server should be running.
+
+Edit Configurations to create a JPhant_Currency_Fair_Test then run the test which will populate data.sparkfun (50 datapoints)
+
+Then open the test directory with the file: currency_fair_market_trade.html.
+
+The 3 little icons for the top 3 browsers will appear on the right: choose Chrome (recommended).
+
+The Google ScatterChart should render the data.
